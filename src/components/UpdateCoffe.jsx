@@ -1,7 +1,8 @@
 import React from "react";
 import { useLoaderData } from "react-router";
+import Swal from "sweetalert2";
 
-const UpdateCoffe = () => {
+const UpdateCoffee = () => {
   const coffee = useLoaderData();
   const { _id, name, chef, supplier, taste, details, photoURL, price } = coffee;
 
@@ -12,6 +13,27 @@ const UpdateCoffe = () => {
     const updatedCoffee = Object.fromEntries(formData.entries());
 
     console.log(updatedCoffee);
+
+    // send update to the db
+    fetch(`http://localhost:3000/coffees/${_id}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(updatedCoffee),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Coffee updated successfully!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
   };
   return (
     <div className="p-24">
@@ -97,4 +119,4 @@ const UpdateCoffe = () => {
   );
 };
 
-export default UpdateCoffe;
+export default UpdateCoffee;

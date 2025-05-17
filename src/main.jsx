@@ -1,14 +1,13 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import App from "./App.jsx";
 
 import { createBrowserRouter, RouterProvider } from "react-router";
 import MainLayout from "./layouts/MainLayout.jsx";
 import Home from "./components/Home.jsx";
 import AddCoffe from "./components/AddCoffe.jsx";
-import UpdateCoffe from "./components/UpdateCoffe.jsx";
 import CoffeeDetails from "./components/CoffeeDetails.jsx";
+import UpdateCoffee from "./components/UpdateCoffe.jsx";
 
 const router = createBrowserRouter([
   {
@@ -26,11 +25,11 @@ const router = createBrowserRouter([
         Component: AddCoffe,
       },
       {
-        path: "/updateCoffee/:id",
+        path: "/UpdateCoffeee/:id",
         loader: ({ params }) =>
           fetch(`http://localhost:3000/coffees/${params.id}`),
         hydrateFallbackElement: <h1>Loading...</h1>,
-        Component: UpdateCoffe,
+        Component: UpdateCoffee,
       },
       {
         path: "/coffee/:id",
